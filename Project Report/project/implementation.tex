@@ -1,0 +1,347 @@
+\chapter{Implementation}
+\section{Agents}
+
+\subsection{Author}
+\begin{lstlisting}
+  public class Author implements ISDoS{
+	private int id;
+	private ArrayList<Discipline> disciplines = new ArrayList<Discipline>();
+	private ArrayList<Paper> papers = new ArrayList<Paper>();
+	private Community community;
+
+	public Author() {}
+
+	public Author(int id) {
+		this.id = id;
+		this.setCommunity(new Community());
+	}
+
+	public void step(Double pW, Paper paper) {
+		this.papers.add(paper); // Add paper to author's written papers.
+		paper.getAuthors().add(this); // Add author to paper's co-author list.
+		paper.getSharedDisciplines().addAll(disciplines); // Diffusion of knowledge, pass collective knowledge through paper.
+		
+		// Get environmental containers.
+		Context<ISDoS> context = ContextUtils.getContext(this);
+		// Get co-authership network.
+		Network<ISDoS> net = (Network<ISDoS>)context.getProjection("coAuthorship network");
+		
+		if(RandomHelper.nextDoubleFromTo(0, 1) < pW){
+			System.out.println("Next walk"); // A tracker for debugging.
+			
+			double[] pdf = new double[net.getDegree(this)]; // Probability distribution function among neighbors of author in network.
+			
+			double totalWeight = 0; // Total weight of edges in network.
+			for(RepastEdge<ISDoS> edge : net.getEdges()){
+				totalWeight += edge.getWeight();
+			}
+			int index = 0;
+			ArrayList<Object> neighbours = new ArrayList<Object>();
+			for(RepastEdge<ISDoS> edge : net.getEdges(this)){
+				double weightOfedge = edge.getWeight();
+				double transitionProbability = weightOfedge / totalWeight; // Transition probability as explained above.
+				pdf[index] = transitionProbability;
+				index++;
+				neighbours.add(edge.getTarget());
+			}
+			
+			RandomHelper.createEmpiricalWalker(pdf, 0); // A random distribution according to given pdf.
+			int indexOfneighbour = RandomHelper.getEmpiricalWalker().nextInt();
+			Author nextAuthor = (Author)neighbours.get(indexOfneighbour); // Get next possible co-author candidate.
+			nextAuthor.step(pW, paper); // Continue to walk through next candidate author.
+			
+		} else {
+			paper.decideDiscipline(context); // Decide main discipline of paper.
+			paper.updateDisciplinesOfAuthors(); // Update disciplines of co-authors.
+			paper.updateCoAuthorNetwork(); // Update network according new knowledge.
+		}
+	}
+\end{lstlisting}
+
+\subsection{Paper}
+\begin{lstlisting}
+ public class Paper implements ISDoS{
+	private Integer id;
+	private ArrayList<Author> authors = new ArrayList<Author>();
+	private Discipline discipline;
+	private ArrayList<Discipline> unionOfSharedDisciplines = new ArrayList<Discipline>();
+	
+	public Paper(Integer id) {
+		this.id = id;
+	}
+
+	public Paper(Integer id, ArrayList<Author> authors, Discipline discipline,
+			ArrayList<Discipline> sharedDisciplines) {
+		this.id = id;
+		this.authors = authors;
+		this.discipline = discipline;
+		this.unionOfSharedDisciplines = sharedDisciplines;
+	}
+
+	public void decideDiscipline(Context<ISDoS> context){
+		IndexedIterable<ISDoS> allDisciplines = context.getObjects(Discipline.class);
+		int[] disciplineCount = new int[allDisciplines.size()];
+		for(Discipline d : unionOfSharedDisciplines){
+			disciplineCount[d.getId()] ++;
+		}
+		// For this stage only one discipline is set for a paper.
+		int mostlySharedDisciplineID = 0;
+		for(int i = 0; i < disciplineCount.length; i++){
+			if(disciplineCount[i] > mostlySharedDisciplineID){
+				mostlySharedDisciplineID = i;
+			}
+		}
+		 setDiscipline((Discipline)allDisciplines.get(mostlySharedDisciplineID));
+	}
+	
+	public void updateDisciplinesOfAuthors(){
+		for(Author author : authors){
+			if(!author.getDisciplines().contains(discipline)){
+				author.getDisciplines().add(discipline);
+			}
+		}
+	}
+	
+	public void updateCoAuthorNetwork(){
+		Context<ISourceContext> context = ContextUtils.getContext(this);
+		Network<ISDoS> net = (Network<ISDoS>)context.getProjection("coAuthorship network");
+		System.out.println("Authors:" + authors.size());
+		for(int i = 0; i < authors.size(); i++){
+			for(int j = i+1; j < authors.size(); j++){
+				System.out.println("Added "+authors.get(i).getId()+" "+authors.get(j).getId());
+				RepastEdge<ISDoS> edge = net.getEdge(authors.get(i), authors.get(j));
+				if(edge == null){
+					net.addEdge(authors.get(i), authors.get(j));
+				} else {
+					edge.setWeight(edge.getWeight()+1);
+				}
+			}
+		}
+	}
+}
+\end{lstlisting}
+
+\subsection{Discipline}
+\begin{lstlisting}
+public class Discipline implements ISDoS{
+	private Integer id;
+
+	public Discipline(Integer id) {
+		this.id = id;
+	}
+}
+\end{lstlisting}
+
+\subsection{Community}
+\begin{lstlisting}
+public class Community implements ISDoS {
+	private int id;
+	private ArrayList<Author> authors = new ArrayList<Author>();
+	private ArrayList<Paper> papers = new ArrayList<Paper>();
+	
+	public Community(){}
+
+	public Community(int id, ArrayList<Author> authors, ArrayList<Paper> papers) {
+		this.id = id;
+		this.authors = authors;
+		this.papers = papers;
+	}
+}
+\end{lstlisting}
+
+\section{Builder and Simulator}
+\begin{lstlisting}
+public class SocialDynamicsOfScienceBuilder extends DefaultContext<ISDoS>
+implements ContextBuilder<ISDoS>  {
+	private Double pW;
+	private Double pN;
+	private Double pD;
+
+	public int getAuthorCount(){
+		return getObjects(Author.class).size();
+	}
+
+	public int getPaperCount(){
+		return getObjects(Paper.class).size();
+	}
+
+	public int getDisciplineCount(){
+		return getObjects(Discipline.class).size(); 
+	}
+
+	public Context<ISDoS> build(Context<ISDoS> context) {
+
+		// Set id for context.
+		context.setId("SocialDynamicsOfScience");
+
+		// Build network for context.
+		NetworkBuilder<ISDoS> netBuilder = new NetworkBuilder<ISDoS>(
+				"coAuthorship network",
+				context, false);
+		netBuilder.buildNetwork();
+
+		// Get rates for simulation as parameters.
+		Parameters params = RunEnvironment.getInstance().getParameters();
+		setpW((Double) params.getValue("authors_per_paper"));
+		setpD((Double) params.getValue("papers_per_author"));
+		setpN((Double) params.getValue("papers_per_discipline"));
+
+
+		Network<ISDoS> net = (Network<ISDoS>)context.getProjection("coAuthorship network");
+
+		// Initialize a network for simulation.
+		// TODO: Get an initial data set from outside from a file.
+		Author A = new Author(0);
+		Discipline D = new Discipline(0);
+		Paper P = new Paper(0);
+
+		// Author our only agent but we need to keep track of other entities.
+		context.add(A);
+		context.add(D);
+		context.add(P);
+
+		net.addEdge(A, A);
+		A.getDisciplines().add(D);
+		A.getPapers().add(P);
+		P.getAuthors().add(A);
+		P.setDiscipline(D);
+
+		// Since in this stage, I do not implemented split/merge of disciplines,
+		// - I need more than one discipline.
+
+		Author A1 = new Author(1);
+		Author A2 = new Author(2);
+		Author A3 = new Author(3);
+		Author A4 = new Author(4);
+
+		Discipline CS = new Discipline(1);
+		Discipline MATH = new Discipline(2);
+		Discipline PHY = new Discipline(3);
+		Discipline PHIL = new Discipline(4);
+
+		Paper P1 = new Paper(1);
+		Paper P2 = new Paper(2);
+		Paper P3 = new Paper(3);
+		Paper P4 = new Paper(4);
+
+		context.add(A1);
+		context.add(A2);
+		context.add(A3);
+		context.add(A4);
+
+		context.add(P1);
+		context.add(P2);
+		context.add(P3);
+		context.add(P4);
+
+		context.add(CS);
+		context.add(MATH);
+		context.add(PHY);
+		context.add(PHIL);
+
+		net.addEdge(A1, A2);
+		net.addEdge(A2, A3);
+		net.addEdge(A1, A3);
+		A1.getDisciplines().add(CS);
+		A1.getPapers().add(P1);
+		P1.getAuthors().add(A1);
+		A2.getDisciplines().add(CS);
+		A2.getPapers().add(P1);
+		P1.getAuthors().add(A2);
+		A3.getDisciplines().add(CS);
+		A3.getPapers().add(P1);
+		P1.getAuthors().add(A3);
+		P1.setDiscipline(CS);
+
+		net.getEdge(A2, A3).setWeight(2);
+		A2.getDisciplines().add(MATH);
+		A2.getPapers().add(P2);
+		P2.getAuthors().add(A2);
+		A3.getDisciplines().add(MATH);
+		A3.getPapers().add(P2);
+		P2.getAuthors().add(A3);
+		P2.setDiscipline(MATH);
+
+		net.addEdge(A3, A3);
+		A3.getDisciplines().add(PHY);
+		A3.getPapers().add(P3);
+		P3.getAuthors().add(A3);
+		P3.setDiscipline(PHY);
+
+		net.addEdge(A4, A);
+		A4.getDisciplines().add(PHIL);
+		A4.getPapers().add(P4);
+		P4.getAuthors().add(A4);
+		A.getDisciplines().add(PHIL);
+		A.getPapers().add(P4);
+		P4.getAuthors().add(A);
+		P4.setDiscipline(PHIL);
+
+		// An example community.
+		Community community = new Community();
+		context.add(community);
+
+		SocialDynamicsOfScienceSimulator simulator = new SocialDynamicsOfScienceSimulator(pW, pN, pD);
+		context.add(simulator);
+
+		return context;
+	}
+}
+
+public class SocialDynamicsOfScienceSimulator implements ISDoS {
+	private Double pW;
+	private Double pN;
+	private Double pD;
+
+	public SocialDynamicsOfScienceSimulator(Double pW, Double pN, Double pD) {
+		this.pW = pW;
+		this.pN = pN;
+		this.pD = pD;
+	}
+
+	public void select() {
+		Context<ISDoS> context = ContextUtils.getContext(this);
+		System.out.println("stepper");
+		// Randomly get an author from context.
+		Iterable<ISDoS> authors = context.getRandomObjects(Author.class , 1); // Since this methods returns iterable object,
+		// Selects an author uniformly distributed randomly from context.
+		Author author = new Author();
+		// An implementation walk around, cused by usage of built-in context.getRandomObjects(Author.class , 1) method.
+		for(ISDoS a : authors){
+			author = (Author)a;
+		}
+		
+		// Calls biased random walk by passing relavent data.
+		Paper paper = new Paper(context.getObjects(Paper.class).size());
+		context.add(paper);
+		author.step(pW, paper);
+		
+		// With a probability seed that given as a parameter adds an author network or not.
+		if(RandomHelper.nextDoubleFromTo(0, 1) < this.pN){
+			Author newAuthor = new Author(context.getObjects(Author.class).size());
+			context.add(newAuthor);
+			Paper newPaper =  new Paper(context.getObjects(Paper.class).size());
+			context.add(newPaper);
+			newPaper.getAuthors().add(newAuthor);
+			newAuthor.getPapers().add(newPaper);
+			
+			Iterable<ISDoS> coAuthors = context.getRandomObjects(Author.class , 1);
+			// Selects an author uniformly distributed randomly from context.
+			Author coAuthor = new Author();
+			for(ISDoS a : coAuthors){
+				coAuthor = (Author)a;
+			}
+			coAuthor.step(pW, newPaper);
+		}
+		if(RandomHelper.nextDoubleFromTo(0, 1) < this.pD){
+			evoluateDisciplines();
+		}
+		
+	}
+}
+\end{lstlisting}
+
+\section{Documentation}
+The codes are documented properly, you can see them from the Documentation/index.html file.
+
+\newpage

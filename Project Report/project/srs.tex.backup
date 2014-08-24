@@ -1,0 +1,4 @@
+\chapter{Software Requirements Specification}
+\paragraph{}
+The simulation implemented with Repast agent-based modelling and simulation toolkit.
+Repast has a variety of features, such as beign fully object-oriented, including a fully concurrent discrete event scheduler; both sequential and parallel, having social network modeling support tools

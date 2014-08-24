@@ -1,0 +1,24 @@
+\chapter{System Design}
+\section{Models}
+\paragraph{}
+The network implemented as three main model; papers, authors, and disciplines.
+It represents a social network among authors.
+In this simulation the social network starts with one author writing one paper in one discipline.
+During the simulation the network evolves as new authors join, new papers are written, and new disciplines emerge over time.
+\paragraph{}
+Parameters will obtained from data sets to calculate related, portions.
+Simulation uses them as probability distribution seeds.
+\subsection{Parameters}
+\paragraph{}
+In every step the simulation starts with choosing an author with uniformly distributed probability.
+Then starts to walk from this initial author, with creating a new paper.
+We modelled these behaviors through a biased random walk. 
+The length of the random walk determines the number of co-authors of that related paper. 
+At each step in the walk, the author visits a node (starting with itself) and decides to stop with probability pW or to continue the search for additional authors with probability 1-pW.
+\paragraph{}
+At every time step, with probability pN, the simulation add a new author to the network with a new paper. 
+The parameter pN regulates the ratio of papers to authors.
+\paragraph{}
+We introduce a novel mechanism to model the evolution of disciplines by splitting and merging communities in the social collaboration network.
+The idea, motivated by the earlier observations from the APS data, is that the birth or decline of a discipline should correspond to an increase in the modularity of the network.
+Two such events may occur at each time step with probability pD.

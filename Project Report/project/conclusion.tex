@@ -1,0 +1,25 @@
+\chapter{Future Scope}
+\paragraph{}
+In future development we can complete the modelize the evalution of diciplines by splitting and merging communities in this network.
+These events can be implement with these ideas,
+\begin{itemize}
+ \item For a split event we select a random discipline with its coauthor network and decide whether a new discipline should emerge from a subset of this community.
+We partition the coauthor network into two clusters.
+If the modularity of the partition is higher than that of the single discipline, there are more collaborations within each cluster than across the two.
+We then split the smaller community as a new discipline.
+In this case the papers whose authors are all in the new community are relabeled to reﬂect the emergent discipline.
+Borderline papers with authors in both old and new disciplines are labeled according to the discipline of the majority of authors.
+Some authors may as a result belong to both old and new discipline.
+ \item For a merge event we randomly select two disciplines with at least one common author.
+If the modularity obtained by merging the two groups is higher than that of the partitioned groups, the collaborations across the two communities are stronger than those within each one. The two are then merged into a single new discipline.
+In this case all the papers in the two old disciplines are relabeled to reﬂect the new one.
+\end{itemize}
+\paragraph{}
+In this simulation, when it decides to continue to bias random walk, we just calculate the probability of co-authors with authors who have collaborated before are likely to do so again.
+We can develop this probabilistic selection on the bias random walk also with considering these facts,
+\begin{itemize}
+ \item Authors who have collaborated before are likely to do so again
+ \item Authors with common collaborators are likely to collaborate with each other
+ \item It is easier to choose collaborators with similar than dissimilar background
+ \item Authors with many collaborations have higher probability to gain additional ones
+\end{itemize}

@@ -1,0 +1,479 @@
+Network initialized
+stepper
+Authors:1
+Next walk
+Authors:3
+Added 5 3
+Added 5 3
+Added 3 3
+stepper
+Next walk
+Authors:2
+Added 1 3
+Authors:2
+Added 6 0
+stepper
+Authors:1
+Authors:2
+Added 7 1
+stepper
+Authors:1
+stepper
+Authors:1
+stepper
+Authors:1
+Authors:2
+Added 8 8
+stepper
+Authors:1
+Authors:2
+Added 9 0
+stepper
+Authors:1
+Next walk
+Next walk
+Next walk
+Authors:5
+Added 10 6
+Added 10 0
+Added 10 0
+Added 10 0
+Added 6 0
+Added 6 0
+Added 6 0
+Added 0 0
+Added 0 0
+Added 0 0
+stepper
+Authors:1
+Authors:2
+Added 11 7
+stepper
+Authors:1
+Next walk
+Next walk
+Authors:4
+Added 12 1
+Added 12 3
+Added 12 3
+Added 1 3
+Added 1 3
+Added 3 3
+stepper
+Authors:1
+stepper
+Authors:1
+Authors:2
+Added 13 1
+stepper
+Next walk
+Authors:2
+Added 9 0
+stepper
+Next walk
+Authors:2
+Added 12 1
+stepper
+Next walk
+Authors:2
+Added 9 0
+Next walk
+Authors:3
+Added 14 13
+Added 14 1
+Added 13 1
+stepper
+Authors:1
+Next walk
+Authors:3
+Added 15 13
+Added 15 13
+Added 13 13
+stepper
+Authors:1
+Authors:2
+Added 16 0
+stepper
+Authors:1
+Authors:2
+Added 17 17
+stepper
+Authors:1
+stepper
+Next walk
+Authors:2
+Added 3 3
+Authors:2
+Added 18 18
+stepper
+Authors:1
+Authors:2
+Added 19 3
+stepper
+Next walk
+Authors:2
+Added 17 17
+Next walk
+Authors:3
+Added 20 3
+Added 20 3
+Added 3 3
+stepper
+Authors:1
+Next walk
+Authors:3
+Added 21 3
+Added 21 3
+Added 3 3
+stepper
+Next walk
+Authors:2
+Added 6 0
+Next walk
+Next walk
+Authors:4
+Added 22 6
+Added 22 0
+Added 22 0
+Added 6 0
+Added 6 0
+Added 0 0
+stepper
+Authors:1
+Next walk
+Authors:3
+Added 23 19
+Added 23 3
+Added 19 3
+stepper
+Authors:1
+Next walk
+Authors:3
+Added 24 12
+Added 24 3
+Added 12 3
+stepper
+Authors:1
+Next walk
+Next walk
+Authors:4
+Added 25 12
+Added 25 1
+Added 25 1
+Added 12 1
+Added 12 1
+Added 1 1
+stepper
+Authors:1
+Authors:2
+Added 26 12
+stepper
+Authors:1
+Authors:2
+Added 27 22
+stepper
+Next walk
+Next walk
+Authors:3
+Added 14 1
+Added 14 3
+Added 1 3
+Authors:2
+Added 28 12
+stepper
+Authors:1
+Next walk
+Authors:3
+Added 29 11
+Added 29 7
+Added 11 7
+stepper
+Authors:1
+Next walk
+Next walk
+Authors:4
+Added 30 1
+Added 30 3
+Added 30 3
+Added 1 3
+Added 1 3
+Added 3 3
+stepper
+Authors:1
+Next walk
+Next walk
+Authors:4
+Added 31 22
+Added 31 0
+Added 31 0
+Added 22 0
+Added 22 0
+Added 0 0
+stepper
+Authors:1
+Authors:2
+Added 32 19
+stepper
+Authors:1
+stepper
+Authors:1
+Authors:2
+Added 33 20
+stepper
+Next walk
+Authors:2
+Added 22 0
+stepper
+Authors:1
+stepper
+Next walk
+Authors:2
+Added 26 12
+stepper
+Next walk
+Authors:2
+Added 6 6
+Authors:2
+Added 34 10
+stepper
+Authors:1
+Authors:2
+Added 35 9
+stepper
+Authors:1
+Authors:2
+Added 36 14
+stepper
+Authors:1
+Next walk
+Next walk
+Authors:4
+Added 37 22
+Added 37 0
+Added 37 0
+Added 22 0
+Added 22 0
+Added 0 0
+stepper
+Next walk
+Authors:2
+Added 22 22
+Authors:2
+Added 38 12
+stepper
+Next walk
+Authors:2
+Added 38 12
+Authors:2
+Added 39 1
+stepper
+Authors:1
+Authors:2
+Added 40 9
+stepper
+Next walk
+Authors:2
+Added 14 13
+Authors:2
+Added 41 40
+stepper
+Next walk
+Next walk
+Authors:3
+Added 20 3
+Added 20 3
+Added 3 3
+Next walk
+Next walk
+Authors:4
+Added 42 12
+Added 42 1
+Added 42 1
+Added 12 1
+Added 12 1
+Added 1 1
+stepper
+Authors:1
+Next walk
+Authors:3
+Added 43 27
+Added 43 22
+Added 27 22
+stepper
+Next walk
+Authors:2
+Added 27 22
+Authors:2
+Added 44 16
+stepper
+Authors:1
+Authors:2
+Added 45 15
+stepper
+Authors:1
+Authors:2
+Added 46 7
+stepper
+Authors:1
+stepper
+Authors:1
+Authors:2
+Added 47 18
+stepper
+Authors:1
+stepper
+Authors:1
+Next walk
+Authors:3
+Added 48 11
+Added 48 11
+Added 11 11
+stepper
+Authors:1
+Authors:2
+Added 49 6
+stepper
+Authors:1
+Authors:2
+Added 50 50
+stepper
+Authors:1
+Next walk
+Authors:3
+Added 51 28
+Added 51 12
+Added 28 12
+stepper
+Authors:1
+Authors:2
+Added 52 31
+stepper
+Next walk
+Authors:2
+Added 6 0
+Authors:2
+Added 53 53
+stepper
+Authors:1
+Authors:2
+Added 54 20
+stepper
+Authors:1
+Next walk
+Authors:3
+Added 55 7
+Added 55 1
+Added 7 1
+stepper
+Next walk
+Authors:2
+Added 20 3
+Authors:2
+Added 56 15
+stepper
+Authors:1
+stepper
+Authors:1
+Authors:2
+Added 57 29
+stepper
+Authors:1
+Next walk
+Authors:3
+Added 58 9
+Added 58 0
+Added 9 0
+stepper
+Next walk
+Authors:2
+Added 33 20
+Authors:2
+Added 59 21
+stepper
+Authors:1
+Authors:2
+Added 60 39
+stepper
+Authors:1
+Authors:2
+Added 61 4
+stepper
+Next walk
+Authors:2
+Added 45 15
+Authors:2
+Added 62 33
+stepper
+Authors:1
+Authors:2
+Added 63 37
+stepper
+Authors:1
+Authors:2
+Added 64 44
+stepper
+Next walk
+Authors:2
+Added 54 20
+Next walk
+Next walk
+Authors:4
+Added 65 19
+Added 65 3
+Added 65 3
+Added 19 3
+Added 19 3
+Added 3 3
+stepper
+Next walk
+Authors:2
+Added 49 6
+Authors:2
+Added 66 16
+stepper
+Authors:1
+Authors:2
+Added 67 5
+stepper
+Next walk
+Authors:2
+Added 13 1
+Authors:2
+Added 68 29
+stepper
+Authors:1
+stepper
+Next walk
+Authors:2
+Added 65 3
+stepper
+Authors:1
+Authors:2
+Added 69 28
+stepper
+Authors:1
+Authors:2
+Added 70 39
+stepper
+Authors:1
+Authors:2
+Added 71 64
+stepper
+Authors:1
+Authors:2
+Added 72 25
+stepper
+Authors:1
+Next walk
+Authors:3
+Added 73 30
+Added 73 3
+Added 30 3
+stepper
+Authors:1
+Authors:2
+Added 74 57
+stepper
+Authors:1
+Authors:2
+Added 75 5

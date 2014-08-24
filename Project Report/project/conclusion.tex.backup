@@ -1,0 +1,21 @@
+\chapter{Conclusion and Future Scope}
+\section{Conclusion}
+\paragraph{}WRITE HERE.
+\section{Future Scope}
+\paragraph{}
+For a split event we select a random discipline with its coauthor network and decide whether a new discipline should emerge from a subset of this community.
+We partition the coauthor network into two clusters.
+If the modularity of the partition is higher than that of the single discipline, there are more collaborations within each cluster than across the two.
+We then split the smaller community as a new discipline.
+In this case the papers whose authors are all in the new community are relabeled to reﬂect the emergent discipline.
+Borderline papers with authors in both old and new disciplines are labeled according to the discipline of the majority of authors.
+Some authors may as a result belong to both old and new discipline.
+\paragraph{}
+For a merge event we randomly select two disciplines with at least one common author.
+If the modularity obtained by merging the two groups is higher than that of the partitioned groups, the collaborations across the two communities are stronger than those within each one. The two are then merged into a single new discipline.
+In this case all the papers in the two old disciplines are relabeled to reﬂect the new one.
+\begin{itemize}
+ \item ITEM 1
+ \item ITEM 2
+ \item ITEM 3
+\end{itemize}

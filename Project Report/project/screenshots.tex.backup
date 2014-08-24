@@ -1,0 +1,40 @@
+\chapter{Simulation}
+\begin{figure}[H]
+    \includegraphics[height= 11cm, width=17cm]{project/images/parameters.png}
+\end{figure}
+\small{Initial Screenshot and Parameters}
+\vspace{1cm}
+\begin{table}
+    \begin{tabular}{|c|c|}
+    
+\begin{figure}[H]
+\includegraphics[height= 5cm, width=8cm]{project/images/1.png}
+\end{figure}
+\small{At tick 1}
+&
+\begin{figure}[H]
+\includegraphics[height= 5cm, width=8cm]{project/images/2.png}
+\end{figure}
+\small{At tick 2} \\ 
+\begin{figure}[H]
+\includegraphics[height= 5cm, width=8cm]{project/images/3.png}
+\end{figure}
+\small{At tick 3}
+&
+\begin{figure}[H]
+\includegraphics[height= 5cm, width=8cm]{project/images/4.png}
+\end{figure}
+\small{At tick 4} \\ 
+\begin{figure}[H]
+\includegraphics[height= 5cm, width=8cm]{project/images/5.png}
+\end{figure}
+\small{At tick 5}
+&
+\\
+\begin{figure}[H]
+\includegraphics[height= 5cm, width=8cm]{project/images/6.png}
+\end{figure}
+\small{At tick 6}
+
+\end{tabular}
+\end{table}
